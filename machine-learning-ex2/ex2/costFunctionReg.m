@@ -17,6 +17,14 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+% regularized logistic regression cost function and gradient function
+thet_ht=theta(2:end);
+J= (1/m)*(-y'*log(sigmoid(X*theta)) - (1-y')*log(1-sigmoid(X*theta)))...
+    + (lambda/(2*m))*(thet_ht'*thet_ht)
+
+grad0=(1/m)*(X(:,1)'*(sigmoid(X*theta) - y));
+grad= (1/m)*(X(:,2:end)'*(sigmoid(X*theta) - y)) + (lambda/m)*thet_ht;
+grad=[grad0;grad];
 
 
 
